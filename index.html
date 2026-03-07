@@ -5,6 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rauf Enç</title>
   <meta name="description" content="Rauf Enç — Eğitimci yazar. Nöroterbiye kitabının yazarı. Dil öğrenme uygulamaları ve dijital projeler." />
+  <meta name="author" content="Rauf Enç" />
+  <link rel="canonical" href="https://raufenc.com" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://raufenc.com" />
+  <meta property="og:title" content="Rauf Enç" />
+  <meta property="og:description" content="Eğitimci yazar. Nöroterbiye kitabının yazarı. Dil öğrenme uygulamaları ve dijital projeler." />
+  <meta property="og:locale" content="tr_TR" />
+  <!-- Twitter/X Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@raufenc" />
+  <meta name="twitter:creator" content="@raufenc" />
+  <meta name="twitter:title" content="Rauf Enç" />
+  <meta name="twitter:description" content="Eğitimci yazar. Nöroterbiye kitabının yazarı. Dil öğrenme uygulamaları ve dijital projeler." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -417,6 +431,39 @@
       .social-grid { grid-template-columns: 1fr; }
     }
 
+    /* ── EMAIL CTA ── */
+    .email-cta {
+      margin-top: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 36px;
+      display: flex; align-items: center; justify-content: space-between; gap: 24px;
+      position: relative; overflow: hidden;
+    }
+    .email-cta::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 0% 50%, var(--warm-soft) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .email-cta-text { position: relative; }
+    .email-cta-text strong { display: block; font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+    .email-cta-text span { font-size: 13px; color: var(--muted2); }
+    .email-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--warm); color: #0a0a0e;
+      border: none; border-radius: 12px;
+      padding: 13px 22px;
+      font-size: 14px; font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s; flex-shrink: 0; position: relative;
+    }
+    .email-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .email-btn svg { width: 16px; height: 16px; }
+    @media (max-width: 560px) {
+      .email-cta { flex-direction: column; align-items: flex-start; }
+    }
+
     /* ── FOOTER ── */
     footer {
       text-align: center; padding: 40px 24px;
@@ -630,6 +677,18 @@
       </a>
 
     </div>
+
+    <div class="email-cta">
+      <div class="email-cta-text">
+        <strong>Doğrudan yaz</strong>
+        <span>Sorular, iş birlikleri ve her türlü mesaj için.</span>
+      </div>
+      <a href="mailto:raufenc@gmail.com" class="email-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        Mesaj Gönder
+      </a>
+    </div>
+
   </div>
 </section>
 
@@ -637,6 +696,8 @@
 <footer>
   Rauf Enç &copy; 2026
 </footer>
+
+<script defer src="/_vercel/insights/script.js"></script>
 
 <script>
 (function() {
