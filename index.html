@@ -519,6 +519,7 @@
     .cf-status { font-size: 13px; display: none; }
     .cf-status.success { display: block; color: #4caf7d; }
     .cf-status.error { display: block; color: #e05c5c; }
+    .cf-input.invalid, .cf-textarea.invalid { border-color: #e05c5c; box-shadow: 0 0 0 3px rgba(224,92,92,0.15); }
     @media (max-width: 600px) {
       .contact-form-wrap { padding: 24px 20px; }
       .cf-row { grid-template-columns: 1fr; }
@@ -1112,9 +1113,15 @@
     e.preventDefault();
     var dict = TRANSLATIONS[currentLang] || TRANSLATIONS['tr'];
 
-    // Basic validation
-    var emailVal = contactForm.email.value.trim();
-    var msgVal = contactForm.message.value.trim();
+    var nameVal = contactForm.elements['name'].value.trim();
+    var emailVal = contactForm.elements['email'].value.trim();
+    var msgVal = contactForm.elements['message'].value.trim();
+
+    // Validation with visual feedback
+    var emailEl = contactForm.elements['email'];
+    var msgEl = contactForm.elements['message'];
+    emailEl.classList.toggle('invalid', !emailVal);
+    msgEl.classList.toggle('invalid', !msgVal);
     if (!emailVal || !msgVal) return;
 
     cfBtn.disabled = true;
@@ -1125,7 +1132,7 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
-        name: contactForm.name.value.trim() || emailVal,
+        name: nameVal || emailVal,
         email: emailVal,
         message: msgVal,
         _subject: 'raufenc.com — Yeni Mesaj'
