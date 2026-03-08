@@ -40,6 +40,31 @@
 
     html { scroll-behavior: smooth; }
 
+    /* ── Light mode ── */
+    html.light {
+      --bg: #f5f3ee;
+      --surface: #ffffff;
+      --surface2: #ede9e0;
+      --border: #ddd9ce;
+      --text: #1c1a14;
+      --muted: #9e9a8e;
+      --muted2: #6e6a5e;
+      --warm: #a07030;
+      --warm-soft: rgba(160,112,48,0.1);
+      --warm-glow: rgba(160,112,48,0.2);
+    }
+    html.light body { background: var(--bg); color: var(--text); }
+    html.light nav { background: rgba(245,243,238,0.85); border-bottom-color: rgba(200,190,170,0.4); }
+    html.light nav.scrolled { background: rgba(245,243,238,0.97); box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+    html.light body::before {
+      background:
+        radial-gradient(ellipse 70% 50% at 20% 0%, rgba(160,112,48,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 80% 90%, rgba(160,112,48,0.04) 0%, transparent 50%);
+    }
+    html, body, nav, .card, .social-card, .email-cta, section, footer {
+      transition: background-color 0.3s, border-color 0.3s, color 0.2s, box-shadow 0.3s;
+    }
+
     body {
       background: var(--bg);
       color: var(--text);
@@ -118,6 +143,18 @@
       letter-spacing: 0.01em;
     }
     .nav-links a:hover { color: var(--text); }
+    .theme-btn {
+      background: none; border: 1px solid var(--border);
+      border-radius: 50%; width: 34px; height: 34px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: var(--muted2);
+      transition: all 0.2s; flex-shrink: 0;
+    }
+    .theme-btn:hover { border-color: var(--warm); color: var(--warm); }
+    .theme-btn svg { width: 16px; height: 16px; }
+    .theme-btn .icon-sun { display: none; }
+    html.light .theme-btn .icon-moon { display: none; }
+    html.light .theme-btn .icon-sun { display: block; }
 
     /* ── HERO ── */
     .hero {
@@ -502,11 +539,17 @@
 <nav>
   <div class="wrap">
     <a href="#" class="nav-logo">rauf<span>enç</span></a>
-    <div class="nav-links">
-      <a href="#hakkinda">Hakkında</a>
-      <a href="#kitap">Kitap</a>
-      <a href="#lab">Lab</a>
-      <a href="#iletisim">İletişim</a>
+    <div style="display:flex;align-items:center;gap:20px;">
+      <div class="nav-links">
+        <a href="#hakkinda">Hakkında</a>
+        <a href="#kitap">Kitap</a>
+        <a href="#lab">Lab</a>
+        <a href="#iletisim">İletişim</a>
+      </div>
+      <button class="theme-btn" id="theme-btn" aria-label="Tema değiştir">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path stroke-linecap="round" d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
     </div>
   </div>
 </nav>
@@ -854,6 +897,16 @@
   document.addEventListener('touchend', function() {
     mouse.x = -1000;
     mouse.y = -1000;
+  });
+
+  // ── THEME TOGGLE ──
+  const themeBtn = document.getElementById('theme-btn');
+  if (localStorage.getItem('theme') === 'light') {
+    document.documentElement.classList.add('light');
+  }
+  themeBtn.addEventListener('click', function() {
+    document.documentElement.classList.toggle('light');
+    localStorage.setItem('theme', document.documentElement.classList.contains('light') ? 'light' : 'dark');
   });
 
   // ── NAV SCROLL ──
