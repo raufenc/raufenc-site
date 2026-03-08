@@ -63,7 +63,7 @@
         radial-gradient(ellipse 70% 50% at 20% 0%, rgba(160,112,48,0.06) 0%, transparent 60%),
         radial-gradient(ellipse 50% 40% at 80% 90%, rgba(160,112,48,0.04) 0%, transparent 50%);
     }
-    html, body, nav, .card, .social-card, .email-cta, section, footer {
+    html, body, nav, .card, .social-card, .contact-form-wrap, .cf-input, .cf-textarea, section, footer {
       transition: background-color 0.3s, border-color 0.3s, color 0.2s, box-shadow 0.3s;
     }
 
@@ -466,37 +466,62 @@
       .social-grid { grid-template-columns: 1fr; }
     }
 
-    /* ── EMAIL CTA ── */
-    .email-cta {
-      margin-top: 20px;
+    /* ── CONTACT FORM ── */
+    .contact-form-wrap {
+      margin-top: 24px;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 32px 36px;
-      display: flex; align-items: center; justify-content: space-between; gap: 24px;
       position: relative; overflow: hidden;
     }
-    .email-cta::before {
+    .contact-form-wrap::before {
       content: ''; position: absolute; inset: 0;
       background: radial-gradient(ellipse 60% 80% at 0% 50%, var(--warm-soft) 0%, transparent 70%);
       pointer-events: none;
     }
-    .email-cta-text { position: relative; }
-    .email-cta-text strong { display: block; font-size: 17px; font-weight: 700; margin-bottom: 4px; }
-    .email-cta-text span { font-size: 13px; color: var(--muted2); }
-    .email-btn {
+    .cf-head { position: relative; margin-bottom: 20px; }
+    .cf-head strong { display: block; font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+    .cf-head span { font-size: 13px; color: var(--muted2); }
+    .cf-form { position: relative; display: flex; flex-direction: column; gap: 12px; }
+    .cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .cf-input, .cf-textarea {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 13px 16px;
+      font-size: 14px; font-family: inherit;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      resize: none;
+    }
+    .cf-input::placeholder, .cf-textarea::placeholder { color: var(--muted); }
+    .cf-input:focus, .cf-textarea:focus {
+      border-color: var(--warm);
+      box-shadow: 0 0 0 3px var(--warm-soft);
+    }
+    .cf-textarea { min-height: 110px; }
+    .cf-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .cf-btn {
       display: inline-flex; align-items: center; gap: 8px;
       background: var(--warm); color: #0a0a0e;
       border: none; border-radius: 12px;
-      padding: 13px 22px;
-      font-size: 14px; font-weight: 700;
-      text-decoration: none;
-      transition: all 0.2s; flex-shrink: 0; position: relative;
+      padding: 13px 24px;
+      font-size: 14px; font-weight: 700; font-family: inherit;
+      cursor: pointer; flex-shrink: 0;
+      transition: all 0.2s;
     }
-    .email-btn:hover { opacity: 0.88; transform: translateY(-1px); }
-    .email-btn svg { width: 16px; height: 16px; }
-    @media (max-width: 560px) {
-      .email-cta { flex-direction: column; align-items: flex-start; }
+    .cf-btn:hover:not(:disabled) { opacity: 0.88; transform: translateY(-1px); }
+    .cf-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .cf-btn svg { width: 16px; height: 16px; }
+    .cf-status { font-size: 13px; display: none; }
+    .cf-status.success { display: block; color: #4caf7d; }
+    .cf-status.error { display: block; color: #e05c5c; }
+    @media (max-width: 600px) {
+      .contact-form-wrap { padding: 24px 20px; }
+      .cf-row { grid-template-columns: 1fr; }
     }
 
     /* ── FOOTER ── */
@@ -710,15 +735,25 @@
 
     </div>
 
-    <div class="email-cta">
-      <div class="email-cta-text">
+    <div class="contact-form-wrap">
+      <div class="cf-head">
         <strong data-i18n="email-title">Doğrudan yaz</strong>
         <span data-i18n="email-sub">Sorular, iş birlikleri ve her türlü mesaj için.</span>
       </div>
-      <a href="mailto:raufenc@gmail.com" class="email-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-        <span data-i18n="email-btn">Mesaj Gönder</span>
-      </a>
+      <form class="cf-form" id="contact-form" novalidate>
+        <div class="cf-row">
+          <input class="cf-input" type="text" name="name" data-i18n-ph="cf-name-ph" placeholder="Adın" autocomplete="name" />
+          <input class="cf-input" type="email" name="email" data-i18n-ph="cf-email-ph" placeholder="E-posta adresin" autocomplete="email" required />
+        </div>
+        <textarea class="cf-textarea" name="message" data-i18n-ph="cf-msg-ph" placeholder="Mesajın..." rows="4" required></textarea>
+        <div class="cf-footer">
+          <span class="cf-status" id="cf-status"></span>
+          <button class="cf-btn" type="submit" id="cf-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+            <span data-i18n="cf-send">Gönder</span>
+          </button>
+        </div>
+      </form>
     </div>
 
   </div>
@@ -979,7 +1014,13 @@
       'x-desc': 'Kısa düşünceler, anlık gözlemler, fikirler.',
       'email-title': 'Doğrudan yaz',
       'email-sub': 'Sorular, iş birlikleri ve her türlü mesaj için.',
-      'email-btn': 'Mesaj Gönder'
+      'email-btn': 'Mesaj Gönder',
+      'cf-send': 'Gönder',
+      'cf-name-ph': 'Adın',
+      'cf-email-ph': 'E-posta adresin',
+      'cf-msg-ph': 'Mesajın...',
+      'cf-ok': 'Mesajın iletildi, teşekkürler 👋',
+      'cf-err': 'Bir hata oluştu, lütfen tekrar dene.'
     },
     en: {
       'nav-about': 'About',
@@ -1022,7 +1063,13 @@
       'x-desc': 'Short thoughts, instant observations, ideas.',
       'email-title': 'Write directly',
       'email-sub': 'For questions, collaborations, and any kind of message.',
-      'email-btn': 'Send a Message'
+      'email-btn': 'Send a Message',
+      'cf-send': 'Send',
+      'cf-name-ph': 'Your name',
+      'cf-email-ph': 'Your email',
+      'cf-msg-ph': 'Your message...',
+      'cf-ok': 'Message sent, thank you 👋',
+      'cf-err': 'Something went wrong, please try again.'
     }
     // Future: add 'ar' key here, setLang will handle dir="rtl"
   };
@@ -1039,9 +1086,12 @@
     var dict = TRANSLATIONS[lang] || TRANSLATIONS['tr'];
     document.querySelectorAll('[data-i18n]').forEach(function(el) {
       var key = el.getAttribute('data-i18n');
-      if (dict[key] !== undefined) {
-        el.innerHTML = dict[key];
-      }
+      if (dict[key] !== undefined) el.innerHTML = dict[key];
+    });
+    // Translate placeholders
+    document.querySelectorAll('[data-i18n-ph]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n-ph');
+      if (dict[key] !== undefined) el.placeholder = dict[key];
     });
     langBtn.textContent = lang === 'tr' ? 'EN' : 'TR';
   }
@@ -1051,6 +1101,53 @@
 
   langBtn.addEventListener('click', function() {
     setLang(currentLang === 'tr' ? 'en' : 'tr');
+  });
+
+  // ── CONTACT FORM ──
+  var contactForm = document.getElementById('contact-form');
+  var cfBtn = document.getElementById('cf-btn');
+  var cfStatus = document.getElementById('cf-status');
+
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var dict = TRANSLATIONS[currentLang] || TRANSLATIONS['tr'];
+
+    // Basic validation
+    var emailVal = contactForm.email.value.trim();
+    var msgVal = contactForm.message.value.trim();
+    if (!emailVal || !msgVal) return;
+
+    cfBtn.disabled = true;
+    cfStatus.className = 'cf-status';
+    cfStatus.textContent = '';
+
+    fetch('https://formsubmit.co/ajax/raufenc@gmail.com', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        name: contactForm.name.value.trim() || emailVal,
+        email: emailVal,
+        message: msgVal,
+        _subject: 'raufenc.com — Yeni Mesaj'
+      })
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      if (data.success === 'true' || data.success === true) {
+        cfStatus.textContent = dict['cf-ok'];
+        cfStatus.className = 'cf-status success';
+        contactForm.reset();
+      } else {
+        throw new Error('fail');
+      }
+    })
+    .catch(function() {
+      cfStatus.textContent = dict['cf-err'];
+      cfStatus.className = 'cf-status error';
+    })
+    .finally(function() {
+      cfBtn.disabled = false;
+    });
   });
 
 })();
