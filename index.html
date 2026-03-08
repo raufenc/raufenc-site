@@ -155,6 +155,14 @@
     .theme-btn .icon-sun { display: none; }
     html.light .theme-btn .icon-moon { display: none; }
     html.light .theme-btn .icon-sun { display: block; }
+    .lang-btn {
+      background: none; border: 1px solid var(--border);
+      border-radius: 100px; padding: 0 10px; height: 34px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+      cursor: pointer; color: var(--muted2); font-family: inherit;
+      transition: all 0.2s; flex-shrink: 0;
+    }
+    .lang-btn:hover { border-color: var(--warm); color: var(--warm); }
 
     /* ── HERO ── */
     .hero {
@@ -189,8 +197,8 @@
     }
 
     .hero-inner {
-      display: grid; grid-template-columns: 1fr 300px;
-      gap: 60px; align-items: center; width: 100%;
+      max-width: 700px; margin: 0 auto;
+      text-align: center;
       position: relative; z-index: 2;
     }
     .hero-text { animation: fadeUp 0.7s ease both; }
@@ -224,23 +232,11 @@
     }
     .hero-desc {
       font-size: 16px; color: var(--muted2); line-height: 1.8;
-      max-width: 480px;
-    }
-    .hero-photo {
-      animation: fadeUp 0.7s 0.15s ease both;
-    }
-    .hero-photo img {
-      width: 100%; border-radius: 20px;
-      border: 1px solid var(--border);
-      box-shadow: 0 24px 64px rgba(0,0,0,0.4);
-      transition: box-shadow 0.4s;
-    }
-    .hero-photo:hover img {
-      box-shadow: 0 24px 64px rgba(200,164,110,0.15);
+      max-width: 520px; margin: 0 auto;
     }
 
     .hero-cta {
-      display: flex; gap: 12px; margin-top: 32px;
+      display: flex; gap: 12px; margin-top: 32px; justify-content: center;
     }
     .btn {
       display: inline-flex; align-items: center; gap: 8px;
@@ -511,13 +507,6 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 700px) {
       .cursor-glow { display: none; }
-      .hero-inner {
-        grid-template-columns: 1fr;
-        gap: 40px; text-align: center;
-      }
-      .hero-photo { order: -1; max-width: 220px; margin: 0 auto; }
-      .hero-desc { margin: 0 auto; }
-      .hero-cta { justify-content: center; }
       .book-grid {
         grid-template-columns: 1fr;
         text-align: center; gap: 32px;
@@ -541,11 +530,12 @@
     <a href="#" class="nav-logo">rauf<span>enç</span></a>
     <div style="display:flex;align-items:center;gap:20px;">
       <div class="nav-links">
-        <a href="#hakkinda">Hakkında</a>
-        <a href="#kitap">Kitap</a>
-        <a href="#lab">Lab</a>
-        <a href="#iletisim">İletişim</a>
+        <a href="#hakkinda" data-i18n="nav-about">Hakkında</a>
+        <a href="#kitap" data-i18n="nav-book">Kitap</a>
+        <a href="#lab" data-i18n="nav-lab">Lab</a>
+        <a href="#iletisim" data-i18n="nav-contact">İletişim</a>
       </div>
+      <button class="lang-btn" id="lang-btn" aria-label="Dil değiştir">EN</button>
       <button class="theme-btn" id="theme-btn" aria-label="Tema değiştir">
         <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path stroke-linecap="round" d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
@@ -560,22 +550,19 @@
   <div class="wrap">
     <div class="hero-inner">
       <div class="hero-text">
-        <span class="hero-label">Eğitimci · Yazar</span>
-        <h1>Rauf Enç<br><span class="thin">İçindeki düşmanı<br>dosta çevirmek</span></h1>
-        <p class="hero-desc">Kendini tanımak için çıktığı yolda, içindeki düşmanla yüzleşip şaşkınlık yaşayan bir yolcu. Öğrendiklerini paylaşmak için kaleme sarılan bir yazar.</p>
+        <span class="hero-label" data-i18n="hero-label">Eğitimci · Yazar</span>
+        <h1 data-i18n="hero-title">Rauf Enç<br><span class="thin">İçindeki düşmanı<br>dosta çevirmek</span></h1>
+        <p class="hero-desc" data-i18n="hero-desc">Kendini tanımak için çıktığı yolda, içindeki düşmanla yüzleşip şaşkınlık yaşayan bir yolcu. Öğrendiklerini paylaşmak için kaleme sarılan bir yazar.</p>
         <div class="hero-cta">
           <a href="#kitap" class="btn btn-warm">
             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-            Nöroterbiye
+            <span data-i18n="hero-btn-book">Nöroterbiye</span>
           </a>
           <a href="#lab" class="btn btn-ghost">
             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
-            Projeler
+            <span data-i18n="hero-btn-lab">Projeler</span>
           </a>
         </div>
-      </div>
-      <div class="hero-photo">
-        <img src="images/raufenc.jpeg" alt="Rauf Enç" width="300" height="300" />
       </div>
     </div>
   </div>
@@ -586,9 +573,9 @@
 <!-- HAKKINDA -->
 <section id="hakkinda" class="reveal">
   <div class="wrap">
-    <span class="section-label">Hakkında</span>
-    <h2 class="section-title">Disiplinler arası bir seyyah</h2>
-    <p style="font-size: 15px; color: var(--muted2); line-height: 2; max-width: 640px;">
+    <span class="section-label" data-i18n="about-label">Hakkında</span>
+    <h2 class="section-title" data-i18n="about-title">Disiplinler arası bir seyyah</h2>
+    <p style="font-size: 15px; color: var(--muted2); line-height: 2; max-width: 640px;" data-i18n="about-desc">
       Yıldız Teknik Üniversitesi Elektronik ve Haberleşme Mühendisliği ile Ankara İlahiyat mezunu. Modern bilimin keşifleriyle İslam alimlerinin nasihatlerini birlikte sunmaya gayret eden bir talebe. Kendi kusurlarını gözetmeye çalışan ve herkesi önce kendine hocalık etmeye çağıran bir muallim.
     </p>
   </div>
@@ -599,21 +586,21 @@
 <!-- KİTAP -->
 <section id="kitap" class="reveal">
   <div class="wrap">
-    <span class="section-label">Kitap</span>
-    <h2 class="section-title">Nöroterbiye</h2>
+    <span class="section-label" data-i18n="book-label">Kitap</span>
+    <h2 class="section-title" data-i18n="book-title">Nöroterbiye</h2>
     <div class="book-grid">
       <div class="book-cover">
         <img src="images/noroterbiye.webp" alt="Nöroterbiye — Rauf Enç" width="220" />
       </div>
       <div class="book-info">
-        <h3>İçimizdeki Düşmanı Dosta Çevirmek</h3>
-        <p class="tagline">Neden hep aynı hataları tekrarlıyoruz?</p>
-        <p>
+        <h3 data-i18n="book-subtitle">İçimizdeki Düşmanı Dosta Çevirmek</h3>
+        <p class="tagline" data-i18n="book-tagline">Neden hep aynı hataları tekrarlıyoruz?</p>
+        <p data-i18n="book-desc">
           "Bunu neden yaptım?" diye pişmanlık duyduğun anlar ne kadar sık? Belki sabah "artık telefonumu azaltacağım" deyip akşamın nasıl geldiğini bile fark etmiyorsun. Nöroterbiye işte tam da bu döngüye ayna tutuyor.
         </p>
         <a href="https://www.ktbkitap.com/urun/noroterbiye-rauf-enc" target="_blank" rel="noopener" class="btn btn-warm">
           <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/></svg>
-          Satın Al
+          <span data-i18n="book-btn">Satın Al</span>
         </a>
       </div>
     </div>
@@ -626,42 +613,42 @@
 <section id="lab" class="reveal">
   <div class="wrap">
     <div class="lab-header">
-      <span class="section-label">Lab</span>
-      <h2 class="section-title">Dijital Denemeler</h2>
-      <p class="lab-sub">Yapay zeka destekli uygulamalar, interaktif sunumlar ve dil araçları</p>
+      <span class="section-label" data-i18n="lab-label">Lab</span>
+      <h2 class="section-title" data-i18n="lab-title">Dijital Denemeler</h2>
+      <p class="lab-sub" data-i18n="lab-sub">Yapay zeka destekli uygulamalar, interaktif sunumlar ve dil araçları</p>
     </div>
 
     <div class="lab-grid">
       <a href="https://lab.raufenc.com/kalbinin-haritasi/" class="lab-card" target="_blank" rel="noopener">
         <span class="lab-card-emoji">🧭</span>
-        <span class="lab-card-tag">Uygulama</span>
-        <h3>Kalbinin Haritası</h3>
-        <p>17 farklı testte kalbine ayna tut. Kibir, sabır, ihlas... Yapay zeka destekli nefs muhasebesi.</p>
+        <span class="lab-card-tag" data-i18n="lab-tag-app">Uygulama</span>
+        <h3 data-i18n="lab-card1-title">Kalbinin Haritası</h3>
+        <p data-i18n="lab-card1-desc">17 farklı testte kalbine ayna tut. Kibir, sabır, ihlas... Yapay zeka destekli nefs muhasebesi.</p>
       </a>
       <a href="https://lab.raufenc.com/namaz-vakitleri/" class="lab-card" target="_blank" rel="noopener">
         <span class="lab-card-emoji">🌙</span>
-        <span class="lab-card-tag">Uygulama</span>
-        <h3>Namaz Vakitleri</h3>
-        <p>Güneşin gökyüzündeki yolculuğu ve beş vakit namazın astronomik sırları.</p>
+        <span class="lab-card-tag" data-i18n="lab-tag-app">Uygulama</span>
+        <h3 data-i18n="lab-card2-title">Namaz Vakitleri</h3>
+        <p data-i18n="lab-card2-desc">Güneşin gökyüzündeki yolculuğu ve beş vakit namazın astronomik sırları.</p>
       </a>
       <a href="https://lab.raufenc.com/safsatalar/" class="lab-card" target="_blank" rel="noopener">
         <span class="lab-card-emoji">🕵️</span>
-        <span class="lab-card-tag">Sunum</span>
-        <h3>Safsata Dedektifi</h3>
-        <p>13 mantıksal hatayı öğren ve gerçek diyaloglarda tespit et. İnteraktif dedektif oyunu.</p>
+        <span class="lab-card-tag" data-i18n="lab-tag-pres">Sunum</span>
+        <h3 data-i18n="lab-card3-title">Safsata Dedektifi</h3>
+        <p data-i18n="lab-card3-desc">13 mantıksal hatayı öğren ve gerçek diyaloglarda tespit et. İnteraktif dedektif oyunu.</p>
       </a>
       <a href="https://lab.raufenc.com/bilim/" class="lab-card" target="_blank" rel="noopener">
         <span class="lab-card-emoji">🔬</span>
-        <span class="lab-card-tag">Sunum</span>
-        <h3>Bilim Nedir, Ne Değildir?</h3>
-        <p>Bilimin türleri, yöntemleri ve sınırları üzerine felsefi bir yolculuk.</p>
+        <span class="lab-card-tag" data-i18n="lab-tag-pres">Sunum</span>
+        <h3 data-i18n="lab-card4-title">Bilim Nedir, Ne Değildir?</h3>
+        <p data-i18n="lab-card4-desc">Bilimin türleri, yöntemleri ve sınırları üzerine felsefi bir yolculuk.</p>
       </a>
     </div>
 
     <div class="lab-footer">
       <a href="https://lab.raufenc.com/" class="lab-btn" target="_blank" rel="noopener">
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
-        Tüm Projeleri Gör
+        <span data-i18n="lab-btn">Tüm Projeleri Gör</span>
       </a>
     </div>
   </div>
@@ -672,9 +659,9 @@
 <!-- İLETİŞİM -->
 <section id="iletisim" class="reveal">
   <div class="wrap">
-    <span class="section-label">İletişim</span>
-    <h2 class="section-title">Birlikte Yürüyelim</h2>
-    <p class="section-sub">Sosyal medyada takip et, dijital yolculuğa ortak ol.</p>
+    <span class="section-label" data-i18n="contact-label">İletişim</span>
+    <h2 class="section-title" data-i18n="contact-title">Birlikte Yürüyelim</h2>
+    <p class="section-sub" data-i18n="contact-sub">Sosyal medyada takip et, dijital yolculuğa ortak ol.</p>
     <div class="social-grid">
 
       <a href="https://www.instagram.com/raufenc/" target="_blank" rel="noopener" class="social-card social-ig">
@@ -684,7 +671,7 @@
         <div class="sc-body">
           <div class="sc-name">Instagram</div>
           <div class="sc-handle">@raufenc</div>
-          <div class="sc-desc">Fotoğraflar, günlük düşünceler ve anlık notlar.</div>
+          <div class="sc-desc" data-i18n="ig-desc">Fotoğraflar, günlük düşünceler ve anlık notlar.</div>
         </div>
         <div class="sc-arrow">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-7-7 7 7-7 7"/></svg>
@@ -698,7 +685,7 @@
         <div class="sc-body">
           <div class="sc-name">YouTube</div>
           <div class="sc-handle">@raufenc</div>
-          <div class="sc-desc">Videolar, eğitim içerikleri ve rehberler.</div>
+          <div class="sc-desc" data-i18n="yt-desc">Videolar, eğitim içerikleri ve rehberler.</div>
         </div>
         <div class="sc-arrow">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-7-7 7 7-7 7"/></svg>
@@ -712,7 +699,7 @@
         <div class="sc-body">
           <div class="sc-name">X</div>
           <div class="sc-handle">@raufenc</div>
-          <div class="sc-desc">Kısa düşünceler, anlık gözlemler, fikirler.</div>
+          <div class="sc-desc" data-i18n="x-desc">Kısa düşünceler, anlık gözlemler, fikirler.</div>
         </div>
         <div class="sc-arrow">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-7-7 7 7-7 7"/></svg>
@@ -723,12 +710,12 @@
 
     <div class="email-cta">
       <div class="email-cta-text">
-        <strong>Doğrudan yaz</strong>
-        <span>Sorular, iş birlikleri ve her türlü mesaj için.</span>
+        <strong data-i18n="email-title">Doğrudan yaz</strong>
+        <span data-i18n="email-sub">Sorular, iş birlikleri ve her türlü mesaj için.</span>
       </div>
       <a href="mailto:raufenc@gmail.com" class="email-btn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-        Mesaj Gönder
+        <span data-i18n="email-btn">Mesaj Gönder</span>
       </a>
     </div>
 
@@ -943,6 +930,125 @@
 
   reveals.forEach(function(el) {
     observer.observe(el);
+  });
+
+  // ── TR / EN LANGUAGE TOGGLE ──
+  // Architecture: data-i18n="key" on elements, innerHTML replacement.
+  // Future Arabic: add 'ar' key to TRANSLATIONS, set dir="rtl" in setLang.
+  var TRANSLATIONS = {
+    tr: {
+      'nav-about': 'Hakkında',
+      'nav-book': 'Kitap',
+      'nav-lab': 'Lab',
+      'nav-contact': 'İletişim',
+      'hero-label': 'Eğitimci · Yazar',
+      'hero-title': 'Rauf Enç<br><span class="thin">İçindeki düşmanı<br>dosta çevirmek</span>',
+      'hero-desc': 'Kendini tanımak için çıktığı yolda, içindeki düşmanla yüzleşip şaşkınlık yaşayan bir yolcu. Öğrendiklerini paylaşmak için kaleme sarılan bir yazar.',
+      'hero-btn-book': 'Nöroterbiye',
+      'hero-btn-lab': 'Projeler',
+      'about-label': 'Hakkında',
+      'about-title': 'Disiplinler arası bir seyyah',
+      'about-desc': 'Yıldız Teknik Üniversitesi Elektronik ve Haberleşme Mühendisliği ile Ankara İlahiyat mezunu. Modern bilimin keşifleriyle İslam alimlerinin nasihatlerini birlikte sunmaya gayret eden bir talebe. Kendi kusurlarını gözetmeye çalışan ve herkesi önce kendine hocalık etmeye çağıran bir muallim.',
+      'book-label': 'Kitap',
+      'book-title': 'Nöroterbiye',
+      'book-subtitle': 'İçimizdeki Düşmanı Dosta Çevirmek',
+      'book-tagline': 'Neden hep aynı hataları tekrarlıyoruz?',
+      'book-desc': '"Bunu neden yaptım?" diye pişmanlık duyduğun anlar ne kadar sık? Belki sabah "artık telefonumu azaltacağım" deyip akşamın nasıl geldiğini bile fark etmiyorsun. Nöroterbiye işte tam da bu döngüye ayna tutuyor.',
+      'book-btn': 'Satın Al',
+      'lab-label': 'Lab',
+      'lab-title': 'Dijital Denemeler',
+      'lab-sub': 'Yapay zeka destekli uygulamalar, interaktif sunumlar ve dil araçları',
+      'lab-tag-app': 'Uygulama',
+      'lab-tag-pres': 'Sunum',
+      'lab-card1-title': 'Kalbinin Haritası',
+      'lab-card1-desc': '17 farklı testte kalbine ayna tut. Kibir, sabır, ihlas... Yapay zeka destekli nefs muhasebesi.',
+      'lab-card2-title': 'Namaz Vakitleri',
+      'lab-card2-desc': 'Güneşin gökyüzündeki yolculuğu ve beş vakit namazın astronomik sırları.',
+      'lab-card3-title': 'Safsata Dedektifi',
+      'lab-card3-desc': '13 mantıksal hatayı öğren ve gerçek diyaloglarda tespit et. İnteraktif dedektif oyunu.',
+      'lab-card4-title': 'Bilim Nedir, Ne Değildir?',
+      'lab-card4-desc': 'Bilimin türleri, yöntemleri ve sınırları üzerine felsefi bir yolculuk.',
+      'lab-btn': 'Tüm Projeleri Gör',
+      'contact-label': 'İletişim',
+      'contact-title': 'Birlikte Yürüyelim',
+      'contact-sub': 'Sosyal medyada takip et, dijital yolculuğa ortak ol.',
+      'ig-desc': 'Fotoğraflar, günlük düşünceler ve anlık notlar.',
+      'yt-desc': 'Videolar, eğitim içerikleri ve rehberler.',
+      'x-desc': 'Kısa düşünceler, anlık gözlemler, fikirler.',
+      'email-title': 'Doğrudan yaz',
+      'email-sub': 'Sorular, iş birlikleri ve her türlü mesaj için.',
+      'email-btn': 'Mesaj Gönder'
+    },
+    en: {
+      'nav-about': 'About',
+      'nav-book': 'Book',
+      'nav-lab': 'Lab',
+      'nav-contact': 'Contact',
+      'hero-label': 'Educator · Author',
+      'hero-title': 'Rauf Enç<br><span class="thin">Turning the enemy<br>within into a friend</span>',
+      'hero-desc': 'A traveler who set out to know himself, surprised when he confronted the enemy within. A writer who picked up his pen to share what he learned.',
+      'hero-btn-book': 'Neurodiscipline',
+      'hero-btn-lab': 'Projects',
+      'about-label': 'About',
+      'about-title': 'An interdisciplinary wanderer',
+      'about-desc': 'Graduate of Yıldız Technical University in Electronics & Communications Engineering and Ankara Faculty of Theology. A student striving to present the discoveries of modern science alongside the counsel of Islamic scholars. A teacher who watches his own shortcomings and invites everyone to first mentor themselves.',
+      'book-label': 'Book',
+      'book-title': 'Neurodiscipline',
+      'book-subtitle': 'Turning the Enemy Within into a Friend',
+      'book-tagline': 'Why do we keep repeating the same mistakes?',
+      'book-desc': 'How often do you feel regret asking "why did I do that?" Maybe you say in the morning "I\'ll use my phone less" and don\'t even notice the evening arriving. Neurodiscipline holds up a mirror to exactly this cycle.',
+      'book-btn': 'Buy',
+      'lab-label': 'Lab',
+      'lab-title': 'Digital Experiments',
+      'lab-sub': 'AI-powered apps, interactive presentations, and language tools',
+      'lab-tag-app': 'App',
+      'lab-tag-pres': 'Presentation',
+      'lab-card1-title': 'Map of Your Heart',
+      'lab-card1-desc': 'Hold a mirror to your heart in 17 different tests. Pride, patience, sincerity… AI-powered self-accountability.',
+      'lab-card2-title': 'Prayer Times',
+      'lab-card2-desc': "The sun's journey across the sky and the astronomical mysteries of the five daily prayers.",
+      'lab-card3-title': 'Fallacy Detective',
+      'lab-card3-desc': 'Learn 13 logical fallacies and detect them in real dialogues. An interactive detective game.',
+      'lab-card4-title': 'What Is Science?',
+      'lab-card4-desc': 'A philosophical journey through the types, methods, and limits of science.',
+      'lab-btn': 'See All Projects',
+      'contact-label': 'Contact',
+      'contact-title': "Let's Walk Together",
+      'contact-sub': 'Follow on social media, join the digital journey.',
+      'ig-desc': 'Photos, daily thoughts, and spontaneous notes.',
+      'yt-desc': 'Videos, educational content, and guides.',
+      'x-desc': 'Short thoughts, instant observations, ideas.',
+      'email-title': 'Write directly',
+      'email-sub': 'For questions, collaborations, and any kind of message.',
+      'email-btn': 'Send a Message'
+    }
+    // Future: add 'ar' key here, setLang will handle dir="rtl"
+  };
+
+  var currentLang = localStorage.getItem('lang') || 'tr';
+  var langBtn = document.getElementById('lang-btn');
+
+  function setLang(lang) {
+    currentLang = lang;
+    localStorage.setItem('lang', lang);
+    document.documentElement.lang = lang;
+    // RTL support for Arabic (future)
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    var dict = TRANSLATIONS[lang] || TRANSLATIONS['tr'];
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n');
+      if (dict[key] !== undefined) {
+        el.innerHTML = dict[key];
+      }
+    });
+    langBtn.textContent = lang === 'tr' ? 'EN' : 'TR';
+  }
+
+  // Init language on load
+  setLang(currentLang);
+
+  langBtn.addEventListener('click', function() {
+    setLang(currentLang === 'tr' ? 'en' : 'tr');
   });
 
 })();
